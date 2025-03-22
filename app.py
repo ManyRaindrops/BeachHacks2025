@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import requests  # For making API calls
+from company_lookup import company_lookup
+from rapidfuzz import process
 
 # Creates an instance of the Flask app
 app = Flask(__name__)
@@ -32,11 +34,17 @@ def get_data():
         return jsonify({"status": "error", "message": str(e)})
 
 def process_query(query):
-    """
-    This is where the fuzzy search should go
-    Needs:
-    - database.json
-    """
+
+    #takes in users company name, finds and returns its ticker
+    #def get_ticker(company_name):
+    company_name = company_name.lower()
+    if company_name in company_lookup:
+        return company_lookup[company_name]
+    best_match = process.extractOne(company_name, company_lookup.keys())
+    if best_match:
+        return company_lookup[best_match[0]]
+    return "Not Found"
+
     pass
 
 # Process the numerial and news data, call the Gemini API
