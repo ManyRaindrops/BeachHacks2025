@@ -1,0 +1,48 @@
+.sidenav {
+    background-color: gray;
+    height: 80%;
+    width: 25%;
+    position: fixed;
+    top: 10%;
+    /* Body CSS */
+    color: red;
+    
+}
+
+.sidenav-left {
+    left: 0;
+}
+
+.sidenav-right {
+    right: 0;
+}
+
+
+.main {
+    text-align: center;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.searchbar {
+    border: 3px solid red;
+    position: fixed; /* or absolute */
+    width: 40%; /* total page width */
+    height: 30px;
+    /* padding, https://css-tricks.com/quick-css-trick-how-to-center-an-object-exactly-in-the-center */
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Style the search box inside the navigation bar */
+.searchbar input[type=text] {
+    width: 90%; /* relative to main box */
+    padding: 5px;
+    margin-top: 0px;
+    margin-left: 2.5%;
+    font-size: 15px;
+  }
