@@ -34,6 +34,8 @@ def get_data():
 def process_query(query):
     """
     This is where the fuzzy search should go
+    Needs:
+    - database.json
     """
     pass
 
@@ -41,6 +43,8 @@ def process_query(query):
 def process_data(data):
     """
     This is where the formulas and Gemini Evaluation goes
+    I need:
+    - what data is in the JSON (output of the API call)
     """
     pass
 
