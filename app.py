@@ -15,9 +15,11 @@ def get_data():
     # Get the query from the frontend
     query = request.json.get('query', '')
     
+    company_ticker = process_query(query)
+
     try:
         # API call (change with the imports for yfinance or yahoo finance)
-        response = requests.get(f"https://api.example.com/data?q={query}")
+        response = requests.get(f"https://api.example.com/data?q={company_ticker}")
 
         # The API probably returns a JSON
         data = response.json()
@@ -29,10 +31,18 @@ def get_data():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
 
+def process_query(query):
+    """
+    This is where the fuzzy search should go
+    """
+    pass
+
 # Process the numerial and news data, call the Gemini API
 def process_data(data):
-    processed_result = "Processed result: " + str(data)
-    return processed_result
+    """
+    This is where the formulas and Gemini Evaluation goes
+    """
+    pass
 
 if __name__ == '__main__':
     app.run(debug=True)
