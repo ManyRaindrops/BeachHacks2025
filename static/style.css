@@ -35,6 +35,7 @@
     h1{font-size: 60px};
 }
 
+
 .center_content {
     text-align: center;
     position: fixed;
@@ -42,8 +43,15 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    p{font-size: 50px};
+    p{font-size: 30px};
 }
+
+.center_content-box {
+    background-color: red;
+    border-radius: 10%;
+    padding: 0px 5px 0px 5px;
+}
+
 
 .searchbar {
     border: 3px solid #78818c;
