@@ -72,8 +72,8 @@
     border-radius: 35px;
   }
 
-h3 {
-    background-image: url('images/BarChart icon.jpeg');
+.sidenav {
+    background-image: url('../images/AnimatedStock.gif');
 }
 
  button{
