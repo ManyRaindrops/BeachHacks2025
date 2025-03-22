@@ -14,15 +14,12 @@
 
 .sidenav-left {
     left: -1%;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-radius: 25px;
 }
 
-.sidenav-right {
-    right: -1%;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-}
+
 
 
 .main {
@@ -50,25 +47,37 @@
     background-color: red;
     border-radius: 10%;
     padding: 0px 5px 0px 5px;
+    display: inline-block;
 }
 
-
 .searchbar {
-    border: 3px solid #78818c;
     position: fixed; /* or absolute */
     width: 40%; /* total page width */
     height: 100px;
     /* padding, https://css-tricks.com/quick-css-trick-how-to-center-an-object-exactly-in-the-center */
     bottom: 5%;
-    left: 50%;
+    left: 60%;
     transform: translate(-50%, -50%);
+    border-radius: 25px;
 }
+
 
 /* Style the search box inside the navigation bar */
 .searchbar input[type=text] {
     width: 90%; /* relative to main box */
-    padding: 5px;
+    padding: 20px;
     margin-top: 0px;
     margin-left: 2.5%;
-    font-size: 15px;
+    font-size: 25px;
+    border-radius: 35px;
   }
+
+h3 {
+    background-image: url('images/BarChart icon.jpeg');
+}
+
+ button{
+    margin-left: 305px;
+    background-color: whitesmoke;
+    border-radius: 35px;
+}
