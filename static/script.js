@@ -24,9 +24,11 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             // Makes sure that the data is successfully parsed
             if (data.status === 'success') {
+                // HTML - clear loading elements
                 // Create a new paragraph element to display the result
                 const resultParagraph = document.createElement('p');
                 resultParagraph.textContent = data.result;
+                // HTML - create output box and add query result as text
                 // Append the paragraph to the main div to that it appears like a new message (this is a CSS thing)
                 mainDiv.appendChild(resultParagraph);
             } else {
@@ -46,5 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const query = queryInput.value;
             sendQueryToServer(query);
         }
+        // HTML - clear main screen and add loading elements. Add user's query as a chat bubble
+
     });
 });
