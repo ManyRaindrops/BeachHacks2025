@@ -136,12 +136,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // User message
             const userMessage = document.createElement('div');
             userMessage.className = 'user-message';
-            userMessage.textContent = prompt;
+            botMessage.innerHTML = marked.parse(prompt);
             mainDiv.appendChild(userMessage);
             // Bot message
             const botMessage = document.createElement('div');
             botMessage.className = 'bot-message';
-            botMessage.textContent = response;
+            botMessage.innerHTML = marked.parse(response);
             mainDiv.appendChild(botMessage);
         });
         // Scroll to the bottom of the main area
