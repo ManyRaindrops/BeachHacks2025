@@ -67,6 +67,7 @@ button:hover {
 /*Container for buttones on left-side*/
 .menu_container {
     position: fixed;
+    top: 20px;
 }
 
 h1{
