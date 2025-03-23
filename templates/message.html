@@ -3,37 +3,29 @@
     <head>
         <title>Loading Elements</title>
         <link rel="stylesheet" type="text/css" href="../static/style.css">
+        <meta name="viewport">
         <style>
-            #myDiv {
-                width: 50%;
-                height: 50%;
-                background-color: gray;
-                position: absolute; /* Important for positioning */
-                bottom: -500px; /* Start off-screen */
-                left: 50%;
-                transform: translateX(-50%); /*Center horizontally */
-                transition: bottom 1s ease-in-out; /* Smooth animation */
-                text-align: center;
-                overflow: hidden;
-                
+            #output_box {
+                position: absolute;
+                right: -100px; /* SET THE SLIDER TO BE OFFSCREEN INITIALLY */
+                width: 400px;
+                height: 100px;
+                background: blue;
+                transition: 1s;
             }
-            #myDiv.show {
-                bottom: 50%; /* Center vertically */
-                transform: translate(-50%, 50%); /* Center both horizontally and vertically */
+            .wrapper #output_box {
+                transition: 1s;
+                right: 0;
             }
+
         </style>
-</head>
-<body>
+    </head>
+    <body>
+        <div class = "wrapper"></div>
+            <div id = "output_box">
+                id="output_box">Results here
+            </div>
+        </div>
 
-<div id="myDiv">Slide Me!</div>
-
-<script>
-const myDiv = document.getElementById("myDiv");
-
-setTimeout(function() {
-  myDiv.classList.add("show");
-}, 100); // Slight delay to show the effect.
-</script>
-
-</body>
+    </body>
 </html>
