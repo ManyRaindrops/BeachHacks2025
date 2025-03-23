@@ -138,14 +138,14 @@ clear_context_memory()  # This will backup the conversation before erasing
 #------------------------------------------------------#
 #                    AI Evaluation                     #
 #------------------------------------------------------#
-
+    
 def get_gemini_response(query):
     try:
         response = model.generate_content(
             f"""You are a helpful AI assistant.
-If the user's query asks for information about a single company, respond with: 'Single company name[xyz]: [company name]'. In parenthesis, identify a potential parent company if there exists one: 'Single company name[xyz]: [company name] (parent company name)'. "xyz" should never be replaced with anything and the format should never be broken.
+If the user's query is about a single company (e.g., asking for information, news, or even phrased as a question about buying/selling), identify the company name and respond with: 'Single company name[xyz]: [company name]'. In parenthesis, identify a potential parent company if there exists one: 'Single company name[xyz]: [company name] (parent company name)'. "xyz" should never be replaced with anything and the format should never be broken.
 If the user's query asks to compare two or more companies that have been mentioned in the current conversation, respond with: 'Comparison of stated or referred to companies'.
-If the user's query is not asking for a company name or a comparison, simply respond to the query directly.
+If the user's query is a general question or statement that doesn't clearly refer to a specific company or a comparison, simply respond to the query directly. If the query is solely asking for financial advice without mentioning a specific company, you can provide a disclaimer.
 User's query:
 {query}"""
         )
@@ -155,7 +155,14 @@ User's query:
         return f"Error with Gemini: {str(e)}"
 
 def get_contextualized_gemini_response(query, context):
-    context_prompt = """You are an analytic interpretator. Read the user's query and identify what they want to compare. Then concisely compare the companies based on these criteria:
+    formatted_context = ""
+    if context and len(context) > 1: # Skip header row if it exists
+        for row in context[1:]:
+            if len(row) == 2:
+                prompt, response = row
+                formatted_context += f"User: {prompt}\nAI: {response}\n"
+
+    context_prompt = f"""You are an analytic interpretator. Given the following conversation history, identify the companies the user wants to compare based on their current query: "{query}". Then, concisely compare these companies based on the following criteria:
 
 1. Financial Health: Evaluate revenue, profits, cash flow, and debt
 2. Valuation: Compare P/E, P/S, P/B ratios to industry standards
@@ -164,17 +171,18 @@ def get_contextualized_gemini_response(query, context):
 5. Risk Assessment: Evaluate volatility metrics and specific risks
 
 Provide your analysis with:
-- Summary overview of  comparisons
+- Summary overview of comparisons
 - Financial strength metrics comparison
 - Valuation assessment comparison
 - Growth potential comparison
 - Key risks comparison
 - Clear recommendation comparison (Strong Buy/Buy/Hold/Sell/Strong Sell) with confidence level.
 
-User query: {query}
+Conversation History:
+{formatted_context}
 
-Context:
-{context}"""
+Based on the conversation history, what two companies is the user asking to compare in their query: "{query}"? Once identified, proceed with the comparison. If you cannot identify two specific companies from the history, politely ask the user for clarification.
+"""
     try:
         response = model.generate_content(contents=f"{context_prompt}")
 
