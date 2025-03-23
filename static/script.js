@@ -34,25 +34,61 @@ document.addEventListener('DOMContentLoaded', function() {
                 botMessage.className = 'bot-message';
                 botMessage.textContent = data.result;
                 loadingElement.replaceWith(botMessage);
+                mainDiv.scrollTop = botMessage.offsetTop;
             } else {
                 // Display an error message if the data is was not successfully parsed
                 const errorMessage = document.createElement('div');
                 errorMessage.className = 'error-message';
                 errorMessage.textContent = `Error: ${data.message}`;
-                loadingElement.replaceWith(errorMessage);            }
+                loadingElement.replaceWith(errorMessage);
+                mainDiv.scrollTop = errorMessage.offsetTop;
+            }
         })
         .catch(error => {
             // Handles network errors if the send/receive couldn't connect to the server
-            mainDiv.innerHTML = `<p>Network error: ${error}</p>`;
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'error-message';
+            errorMessage.textContent = `Network error: ${error.message}`;
+            loadingElement.replaceWith(errorMessage);
+            mainDiv.scrollTop = mainDiv.scrollHeight;
         });
     }
 
     // Event listener for the search bar (when the user presses Enter)
     queryInput.addEventListener('keypress', function(event) {
         if (event.key === 'Enter') {
-            const query = queryInput.value;
-            sendQueryToServer(query);
+            event.preventDefault();
+            handleSearch();
         }
-        // HTML - clear main screen and add loading elements. Add user's query as a chat bubble
     });
+
+    // Event listener for the search button
+    searchButton.addEventListener('click', function() {
+        handleSearch();
+    });
+
+    // Function to handle search logic
+    function handleSearch() {
+        const query = queryInput.value.trim();
+        
+        if (!query) return;
+
+        // Add user message
+        const userMessage = document.createElement('div');
+        userMessage.className = 'user-message';
+        userMessage.textContent = query;
+        mainDiv.appendChild(userMessage);
+
+        // Add loading indicator
+        const loadingMessage = document.createElement('div');
+        loadingMessage.className = 'loading-message';
+        loadingMessage.textContent = 'Loading...';
+        mainDiv.appendChild(loadingMessage);
+
+        // Clear input and scroll to bottom
+        queryInput.value = '';
+        mainDiv.scrollTop = mainDiv.scrollHeight;
+
+        sendQueryToServer(query, loadingMessage);
+    }
 });
