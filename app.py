@@ -76,7 +76,7 @@ def get_gemini_response(query):
 # Process the numerial and news data, call the Gemini API
 def process_data(data):
 
-    system_prompt = """You are a financial analyst providing stock investment recommendations. Analyze data and deliver buy/sell guidance based on these criteria:
+    system_prompt = """You are a professional financial analyst providing stock investment recommendations. Concisely analyze data and deliver buy/sell guidance based on these criteria:
 
 1. Financial Health: Evaluate revenue, profits, cash flow, and debt
 2. Valuation: Compare P/E, P/S, P/B ratios to industry standards
