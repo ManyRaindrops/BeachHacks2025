@@ -56,8 +56,11 @@ button {
     max-width: 100%;
 }
 
-p #history {
-    text-align: center;
+h2 #history {
+    position: fixed;
+    top: 100px;
+    left: 125px;
+    transform: translate(-50%, -50%);
 }
 
 #theme, #settings, #about {
