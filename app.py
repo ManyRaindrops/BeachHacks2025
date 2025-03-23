@@ -59,24 +59,22 @@ def get_data():
 
     with open(CONTEXT_MEMORY_FILE, "r") as file:
         context = csv.reader(file)
-    
+
     # Let the AI evaluate what to do
     gemini_response = get_gemini_response(query)
 
     if "Error with Gemini:" in gemini_response:
         return jsonify({"status": "error", "message": gemini_response})
-    elif "Single company name[xyz]: " in gemini_response: 
+    elif "Single company name[xyz]: " in gemini_response:
         company_ticker = process_query(gemini_response.split("Single company name[xyz]: ")[1])
         if company_ticker == "Not Found":
             return jsonify({"status": "error", "message": "Company not found"})
-        single_stock_financial_analyzer(company_ticker, query)
+        return single_stock_financial_analyzer(company_ticker, query)  # Add return here
     elif "Comparison of stated or referred to companies" in gemini_response:
         contextualized_gemini_response = get_contextualized_gemini_response(query, context)
-        
-        company_ticker = process_query(contextualized_gemini_response.split("Two company names[xyz]: ")[1])
-        if company_ticker == "Not Found":
-            return jsonify({"status": "error", "message": "Company not found"})
-        double_stock_financial_analyzer(company_ticker)
+        if "Error with Gemini:" in contextualized_gemini_response:
+            return jsonify({"status": "error", "message": contextualized_gemini_response})
+        return contextualized_gemini_response  # Add return here
     else:
         # Gemini did not return a company name, return the response
         return jsonify({"status": "success", "result": gemini_response})
@@ -107,10 +105,8 @@ def backup_context_to_permanent(title):
     
     # Read context memory
     with open(CONTEXT_MEMORY_FILE, "r") as file:
-        reader = csv.reader(file)
-        next(reader)  # Skip header
-        conversations = [row for row in reader]
-
+        readerq = csv.reader(file)
+        conversations = [row for row in readerq]
     if conversations:  # Only save if there's something to backup
         with open(PERMANENT_MEMORY_FILE, "a", newline="") as file:
             writer = csv.writer(file)
@@ -129,7 +125,7 @@ def clear_context_memory():
 def gemini_generated_title(CONTEXT_MEMORY_FILE):
     with open(CONTEXT_MEMORY_FILE, "r", newline="") as file: # changed to read only
         writer = csv.writer(file)
-    response = model.generate_content(f"Reply only with a title for the following conversation: {write}")
+    response = model.generate_content(f"Reply only with a title for the following conversation: {writer}")
     response.resolve()
     return response.text.strip()
 

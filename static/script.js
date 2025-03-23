@@ -3,10 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const queryInput = document.getElementById('searchbar');
     const searchButton = document.getElementById('searchbutton');
     const mainDiv = document.querySelector('main');
-    
+
 
     // Send and recieve data to and from the server
     function sendQueryToServer(query, loadingElement) {
+        console.log('sendQueryToServer function called with query:', query);
         // Send data to the server URL (sends the input data as a JSON with string data)
         fetch('/get_data', {
             // Tells the server what kind of request this is. POST requests are usually for sending data that is to be processed
@@ -19,9 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Converts input data into a string and turns it into a query type with the value "query," the function parameter
             body: JSON.stringify({ query: query })
         })
-
-        // Recieve data from the server, executes after the previous operation is done (receives "response" and turns it into response.json)
         .then(response => {
+            console.log('Response received from server:', response);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         // ".then()" is a function that executes after the previous functions have completed. "data" is the parsed JSON data from the previous ".then" function
         .then(data => {
+            console.log('Data parsed from response:', data);
             // Makes sure that the data is successfully parsed
             if (data.status === 'success') {
                 // Create a new paragraph element to display the result
@@ -48,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             // Handles network errors if the send/receive couldn't connect to the server
+            console.error('Network error:', error);
             const errorMessage = document.createElement('div');
             errorMessage.className = 'error-message';
             errorMessage.textContent = `Network error: ${error.message}`;
@@ -58,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener for the search bar (when the user presses Enter)
     queryInput.addEventListener('keypress', function(event) {
+        console.log('Keypress event on queryInput:', event.key);
         if (event.key === 'Enter') {
             event.preventDefault();
             handleSearch();
@@ -66,14 +69,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener for the search button
     searchButton.addEventListener('click', function() {
+        console.log('Click event on searchButton');
         handleSearch();
     });
 
     // Function to handle search logic
     function handleSearch() {
+        console.log('handleSearch function called');
         const query = queryInput.value.trim();
-        
-        if (!query) return;
+
+        if (!query) {
+            console.log('Query is empty, returning from handleSearch');
+            return;
+        }
 
         // Add user message
         const userMessage = document.createElement('div');
