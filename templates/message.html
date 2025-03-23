@@ -4,28 +4,27 @@
         <title>Loading Elements</title>
         <link rel="stylesheet" type="text/css" href="../static/style.css">
         <meta name="viewport">
-        <style>
-            #output_box {
-                position: absolute;
-                right: -100px; /* SET THE SLIDER TO BE OFFSCREEN INITIALLY */
-                width: 400px;
-                height: 100px;
-                background: blue;
-                transition: 1s;
-            }
-            .wrapper #output_box {
-                transition: 1s;
-                right: 0;
-            }
 
+        <style>
+            .output_box {
+                opacity: 1;
+                animation-name: fadeInOpacity;
+                animation-iteration-count: 1;
+                animation-timing-function: ease-in;
+                animation-duration: 2s;
+                border: 5px solid blue;
+                width: 40%;
+                height: 60%;
+            }
+            @keyframes fadeInOpacity {
+                0% { opacity: 0;}
+                100% {opacity: 1;}
+            }
         </style>
     </head>
     <body>
-        <div class = "wrapper"></div>
-            <div id = "output_box">
-                id="output_box">Results here
-            </div>
+        <div class = "output_box">
+            <p>Output should go here</p>
         </div>
-
     </body>
 </html>
