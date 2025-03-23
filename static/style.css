@@ -46,19 +46,26 @@
 
 .center_content {
     text-align: center;
+    margin-top: 50px;
     position: fixed;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     color: white;
-    p{font-size: 30px};
+    width: 100px;
 }
-
+.center_content p{
+    font-size: 20px;
+    margin: 10px 0;
+}
+/* Modify center_content-box  for side bar*/
 .center_content-box {
     background-color: red;
     border-radius: 10%;
-    padding: 0px 5px 0px 5px;
+    padding: 8px 12px;
     display: inline-block;
+    margin-bottom: 15px;
+    transition: background-color 0.5s ease-in-out;
+    animation: colorChange 5s infinite alternate;
+    cursor: pointer;
+
 }
 
 .searchbar {
