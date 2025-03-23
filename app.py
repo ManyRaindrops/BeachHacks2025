@@ -55,6 +55,66 @@ def get_data():
     else:
         # Gemini did not return a company name, return the response
         return jsonify({"status": "success", "result": gemini_response})
+    
+#------------------------------------------------------#
+#                      Memory                          #
+#------------------------------------------------------#
+
+import csv
+import os
+
+CONTEXT_MEMORY_FILE = "context_memory.csv"
+PERMANENT_MEMORY_FILE = "permanent_memory.csv"
+
+# Ensure files exist
+for file in [CONTEXT_MEMORY_FILE, PERMANENT_MEMORY_FILE]:
+    if not os.path.exists(file):
+        with open(file, "w", newline="") as f:
+            writer = csv.writer(f)
+            if file == CONTEXT_MEMORY_FILE:
+                writer.writerow(["Prompt", "Response"])  # Header
+            else:
+                writer.writerow(["Title", "Conversation"])  # Header
+
+def save_to_context_memory(prompt, response):
+
+    with open(CONTEXT_MEMORY_FILE, "a", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow([prompt, response])
+
+def backup_context_to_permanent(title):
+
+    conversations = []
+    
+    # Read context memory
+    with open(CONTEXT_MEMORY_FILE, "r") as file:
+        reader = csv.reader(file)
+        next(reader)  # Skip header
+        conversations = [row for row in reader]
+
+    if conversations:  # Only save if there's something to backup
+        with open(PERMANENT_MEMORY_FILE, "a", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow([title, conversations])  # Save under title
+
+def clear_context_memory():
+    """Backup and then clear context memory."""
+    title = gemini_generated_title(CONTEXT_MEMORY_FILE)  # Unique title
+    backup_context_to_permanent(title)
+
+    # Clear context memory
+    with open(CONTEXT_MEMORY_FILE, "w", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow(["Prompt", "Response"])  # Reset header
+
+def gemini_generated_title(CONTEXT_MEMORY_FILE):
+    with open(CONTEXT_MEMORY_FILE, "w", newline="") as file:
+        writer = csv.writer(file)
+    response = model.generate_content(f"Reply only with a title for the following conversation: {write}")
+    response.resolve()
+    return response.text.strip()
+
+clear_context_memory()  # This will backup the conversation before erasing
 
 #------------------------------------------------------#
 #                    AI Evaluation                     #
