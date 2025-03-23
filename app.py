@@ -22,7 +22,7 @@ import google.generativeai as genai
 implement variable-based input for the API key
 """
 
-genai.configure(api_key="AIzaSyDAB-eKH3182tYPW9-gs6bMzhU_mNWdXhs")
+genai.configure(api_key="AIzaSyC3FA_zcs1j252AAZsna4cgfGY5lGPVX2I")
 model = genai.GenerativeModel('gemini-2.0-flash')
 
 

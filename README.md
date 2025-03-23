@@ -1,4 +1,2 @@
 # BeachHacks2025
-Material UI (MUI)
-FontAwesome
-GraphQL
+by Bertrand Lee, Jonathan Pina-Villanueva, Anthony Rodriguez, and Roman Pihterev 
