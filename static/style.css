@@ -57,7 +57,8 @@ button {
 }
 
 p #history {
-    text-align: center;
+    text-align: center;'
+    width: 100%;
 }
 
 #theme, #settings, #about {
