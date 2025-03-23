@@ -37,18 +37,18 @@ aside {
 main {
     flex: 1; /* Takes up remaining space */
     margin-left: 250px; /* Matches the width of aside to prevent overlap */
-    padding: 20px;
+    padding: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #3a5f3b;
+    color: #45a049;
     padding: 10px 20px;
     margin: 10px 0;
-    border: none;
+    border: 2px solid #45a049;
     border-radius: 40px;
     cursor: pointer;
     font-size: 16px;
@@ -57,27 +57,13 @@ button {
 
 button:hover {
     background-color: #45a049;
-}
-
-.searchbar_container {
-    position: fixed;
-    width: 40%;
-    bottom: 5%;
-    left: 50%;
-    margin-left: 135px;
-    display: flex;
-    justify-content: center;
-    transform: translateX(-50%);
-    border-radius: 40px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    align-items: center;
-    padding: 0 10px;
-    border: 1px solid #4a4a4a;
-    background-color: #202020;
-    color: white;
+    color: #3a5f3b;
+    border: 2px solid #3a5f3b;
 }
 
 .searchbar_container{
+    margin-left: 120px;
+    color: white;
     position: fixed; /* or absolute */
     width: 40%; /* total page width */
     height: 90px;
@@ -87,7 +73,7 @@ button:hover {
     display: flex;
     justify-content: center;
     transform: translateX(-50%);
-    border-radius: 40px;
+    border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0, 0.3);
     align-items: center;
     padding: 0 10px;
@@ -99,11 +85,12 @@ button:hover {
     flex: 1;
     padding: 14px 20px;
     margin-right: 15px;
-    border-radius:35px;
+    border-radius:15px;
     border: none;
     background-color: transparent;
     font-size: 16px;
     outline: none;
+    color: white;
 }
 
 .searchbar_container button{
@@ -120,6 +107,37 @@ button:hover {
     align-items: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 
+}
+
+.bot-message {
+    text-align: left; /* Align text to the left */
+}
+
+.bot-message h1, .bot-message h2, .bot-message h3 {
+    margin-top: 10px; /* Add some top margin to headings */
+    margin-bottom: 5px; /* Add some bottom margin to headings */
+}
+
+.bot-message p {
+    margin-bottom: 8px; /* Add some bottom margin to paragraphs */
+    line-height: 1.6; /* Improve readability with line spacing */
+}
+
+.bot-message ul, .bot-message ol {
+    margin-left: 20px; /* Add indentation for lists */
+    margin-bottom: 8px;
+}
+
+.bot-message li {
+    margin-bottom: 4px;
+}
+
+.bot-message strong, .bot-message b {
+    font-weight: bold; /* Make bold text stand out */
+}
+
+.bot-message em, .bot-message i {
+    font-style: italic; /* Style italicized text */
 }
 
 /* Responsive Design */
@@ -156,7 +174,6 @@ button:hover {
     word-wrap: break-word;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     font-size: 15px;
-}
 }
 
 /* Animation for text*/
