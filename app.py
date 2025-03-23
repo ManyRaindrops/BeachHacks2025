@@ -5,6 +5,7 @@ import requests  # For making API calls
 # data processing
 from company_lookup import company_lookup
 from rapidfuzz import process
+import yfinance as yf
 
 # Gemini API
 from google import genai
@@ -84,14 +85,13 @@ def process_query(company_name):
 
 def single_stock_financial_analyzer(company_ticker):
     try:
-        # API call (change with the imports for yfinance or yahoo finance)
-        response = requests.get(f"https://api.example.com/data?q={company_ticker}")
-
-        # The API probably returns a JSON
-        data = response.json()
+    
+        company = yf.Ticker(f"{company_ticker}")
+        company_data = company.info
+    
         
         # Process the numerical and news data
-        result = process_data(data)
+        result = process_data(company_data)
         
         return jsonify({"status": "success", "result": result})
     except Exception as e:
