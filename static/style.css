@@ -5,7 +5,57 @@
 
 html {
     scroll-behavior: smooth;
-    overflow
+    overflow: y-scroll;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: #202020;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    height: 100%;
+    background-color: #141414;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #45a049;
 }
 
 /*TITLE */
@@ -14,6 +64,11 @@ h1{
     text-align: center;
     font-size: 50px;
     font-weight: bold;
+}
+
+.user-message, .loading-message, .error-message, .bot-message {
+    text-align: left;
+    font-size: 20px;
 }
 
 .searchbar_container{
