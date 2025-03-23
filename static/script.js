@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Create a new paragraph element to display the result
                 const botMessage = document.createElement('div');
                 botMessage.className = 'bot-message';
-                botMessage.textContent = data.result;
+                botMessage.innerHTML = marked.parse(data.result); // Convert Markdown to HTML and set innerHTML
                 loadingElement.replaceWith(botMessage);
                 mainDiv.scrollTop = botMessage.offsetTop;
-            } else {
+        } else {
                 // Display an error message if the data is was not successfully parsed
                 const errorMessage = document.createElement('div');
                 errorMessage.className = 'error-message';
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add user message
         const userMessage = document.createElement('div');
         userMessage.className = 'user-message';
-        userMessage.textContent = query;
+        userMessage.innerHTML = marked.parse(query);
         mainDiv.appendChild(userMessage);
 
         // Add loading indicator
