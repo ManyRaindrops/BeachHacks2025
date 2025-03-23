@@ -1,10 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Create references to the DOM elements
     const queryInput = document.getElementById('searchbar');
-    const mainDiv = document.querySelector('.main');
+    const searchButton = document.getElementById('searchbutton');
+    const mainDiv = document.querySelector('main');
+    
 
     // Send and recieve data to and from the server
-    function sendQueryToServer(query) {
+    function sendQueryToServer(query, loadingElement) {
         // Send data to the server URL (sends the input data as a JSON with string data)
         fetch('/get_data', {
             // Tells the server what kind of request this is. POST requests are usually for sending data that is to be processed
@@ -90,5 +92,51 @@ document.addEventListener('DOMContentLoaded', function() {
         mainDiv.scrollTop = mainDiv.scrollHeight;
 
         sendQueryToServer(query, loadingMessage);
+    }
+    // Fetch conversations from the server
+    fetch('/get_conversations')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const historyDiv = document.getElementById('conversation_history');
+            // Create a button for each conversation
+            data.forEach(convo => {
+                const button = document.createElement('button');
+                button.textContent = convo.title;
+                button.addEventListener('click', () => {
+                    loadConversation(convo.conversation);
+                });
+                historyDiv.appendChild(button);
+            });
+        })
+        .catch(error => {
+            console.error('Error loading conversations:', error);
+        });
+
+    // Function to load a conversation into the main area
+    function loadConversation(conversation) {
+        const mainDiv = document.querySelector('main');
+        // Clear the main area
+        mainDiv.innerHTML = '';
+        // Append each prompt-response pair
+        conversation.forEach(pair => {
+            const [prompt, response] = pair;
+            // User message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'user-message';
+            userMessage.textContent = prompt;
+            mainDiv.appendChild(userMessage);
+            // Bot message
+            const botMessage = document.createElement('div');
+            botMessage.className = 'bot-message';
+            botMessage.textContent = response;
+            mainDiv.appendChild(botMessage);
+        });
+        // Scroll to the bottom of the main area
+        mainDiv.scrollTop = mainDiv.scrollHeight;
     }
 });
