@@ -1,49 +1,47 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box; /* Ensures padding doesn’t affect width calculations */
 }
 
 html {
     scroll-behavior: smooth;
-    overflow: y-scroll;
+    overflow-y: scroll;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* justify-content: center; */
-    min-height: 100vh;
-    width: 100%;
     background-color: #202020;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: white;
+    display: flex;
 }
 
-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start; 
+.main-container {
+    display: flex;  /* Fix to ensure main and aside align properly */
     width: 100%;
-    height: 100%;
 }
 
 aside {
-    position: fixed;
-    top: 0;
+    position: fixed;  /* Keeps sidebar in place */
     left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    width: 250px;
+    top: 0;
+    width: 250px;  /* Set a fixed width */
     height: 100vh;
     background-color: #141414;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
+main {
+    flex: 1; /* Takes up remaining space */
+    margin-left: 250px; /* Matches the width of aside to prevent overlap */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 button {
     background-color: #4CAF50;
@@ -60,36 +58,23 @@ button {
 button:hover {
     background-color: #45a049;
 }
-.conversation_history{
-    margin-top: 20px;
-}
 
-/*other styles*/
-/*Container for buttones on left-side*/
-.menu_container {
-    position: relative;
+.searchbar_container {
+    position: fixed;
+    width: 40%;
+    bottom: 5%;
+    left: 50%;
+    margin-left: 135px;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-h1{
-    text-align: center;
-    font-size: 50px;
-    font-weight: bold;
-}
-
-.user-message, .loading-message, .error-message, .bot-message {
-    /* font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: white; */
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: right;
-    width: 80%;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+    justify-content: center;
+    transform: translateX(-50%);
+    border-radius: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    align-items: center;
+    padding: 0 10px;
+    border: 1px solid #4a4a4a;
+    background-color: #202020;
+    color: white;
 }
 
 .searchbar_container{
@@ -137,8 +122,23 @@ h1{
 
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    aside {
+        width: 200px;
+    }
+    main {
+        margin-left: 200px;
+    }
+}
 
-
-
-
-
+@media (max-width: 600px) {
+    aside {
+        position: absolute;
+        width: 100%;
+        height: auto;
+    }
+    main {
+        margin-left: 0;
+    }
+}
