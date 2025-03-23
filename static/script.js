@@ -19,22 +19,27 @@ document.addEventListener('DOMContentLoaded', function() {
         })
 
         // Recieve data from the server, executes after the previous operation is done (receives "response" and turns it into response.json)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         // ".then()" is a function that executes after the previous functions have completed. "data" is the parsed JSON data from the previous ".then" function
         .then(data => {
             // Makes sure that the data is successfully parsed
             if (data.status === 'success') {
-                // HTML - clear loading elements
                 // Create a new paragraph element to display the result
-                const resultParagraph = document.createElement('p');
-                resultParagraph.textContent = data.result;
-                // HTML - create output box and add query result as text
-                // Append the paragraph to the main div to that it appears like a new message (this is a CSS thing)
-                mainDiv.appendChild(resultParagraph);
+                const botMessage = document.createElement('div');
+                botMessage.className = 'bot-message';
+                botMessage.textContent = data.result;
+                loadingElement.replaceWith(botMessage);
             } else {
                 // Display an error message if the data is was not successfully parsed
-                mainDiv.innerHTML = `<p>Error: ${data.message}</p>`;
-            }
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'error-message';
+                errorMessage.textContent = `Error: ${data.message}`;
+                loadingElement.replaceWith(errorMessage);            }
         })
         .catch(error => {
             // Handles network errors if the send/receive couldn't connect to the server
@@ -49,6 +54,5 @@ document.addEventListener('DOMContentLoaded', function() {
             sendQueryToServer(query);
         }
         // HTML - clear main screen and add loading elements. Add user's query as a chat bubble
-
     });
 });
