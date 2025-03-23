@@ -45,7 +45,7 @@ def get_data():
         company_ticker = process_query(gemini_response.split("Single company name[xyz]: ")[1])
         if company_ticker == "Not Found":
             return jsonify({"status": "error", "message": "Company not found"})
-        single_stock_financial_analyzer(company_ticker)
+        single_stock_financial_analyzer(company_ticker, query)
     elif "Two company names[xyz]: " in gemini_response:
         company_ticker = process_query(gemini_response.split("Two company names[xyz]: ")[1])
         if company_ticker == "Not Found":
@@ -129,7 +129,7 @@ def get_gemini_response(query):
         return f"Error with Gemini: {str(e)}"
 
 # Process the numerial and news data, call the Gemini API
-def process_data(data):
+def process_data(data, query):
 
     system_prompt = """You are a professional financial analyst providing stock investment recommendations. Concisely analyze data and deliver buy/sell guidance based on these criteria:
 
@@ -148,6 +148,9 @@ Provide your analysis with:
 - Clear recommendation (Strong Buy/Buy/Hold/Sell/Strong Sell) with confidence level"""
     try:
         response = model.generate_content(contents=f"{system_prompt}\n{data}")
+
+        save_to_context_memory(query, response.text.strip())
+
         response.resolve()
         return response.text.strip()
     except Exception as e:
@@ -166,14 +169,14 @@ def process_query(company_name):
         return company_lookup[best_match[0]]
     return "Not Found"
 
-def single_stock_financial_analyzer(company_ticker):
+def single_stock_financial_analyzer(company_ticker, query):
     try:
         # Get company data
         company = yf.Ticker(f"{company_ticker}")
         company_data = company.info
 
         # Process the numerical and news data
-        result = process_data(company_data)
+        result = process_data(company_data, query)
 
         # Return an error if Gemini fails
         if "Error with Gemini:" in result:
