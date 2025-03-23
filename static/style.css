@@ -47,6 +47,23 @@ button {
     background-color: #3a5f3b;
     color: #45a049;
     padding: 10px 20px;
+    margin: 10px;
+    border: 2px solid #45a049;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    max-width: 100%;
+}
+
+p #history {
+    text-align: center;
+}
+
+#theme, #settings, #about {
+    background-color: #3a5f3b;
+    color: #45a049;
+    padding: 10px 20px;
     margin: 10px 0;
     border: 2px solid #45a049;
     border-radius: 16px;
