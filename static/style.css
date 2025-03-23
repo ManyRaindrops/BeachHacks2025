@@ -229,6 +229,10 @@ body.light-mode .searchbar_container {
     border: 1px solid #ccc;
 }
 
+body.light-mode .searchbar_container input {
+    color: black;
+}
+
 body.light-mode .user-message,
 body.light-mode .bot-message {
     background-color: #eaeaea;
