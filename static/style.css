@@ -56,10 +56,6 @@ button {
     max-width: 100%;
 }
 
-p #history {
-    text-align: center;
-}
-
 #theme, #settings, #about {
     background-color: #3a5f3b;
     color: #45a049;
