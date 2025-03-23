@@ -8,13 +8,13 @@ from rapidfuzz import process
 import yfinance as yf
 
 # Gemini API
-from google import genai
+import google.generativeai as genai
 
 """
 implement variable-based input for the API key
 """
 
-genai.configure(api_key="YOUR_GEMINI_API_KEY")
+genai.configure(api_key="AIzaSyDAB-eKH3182tYPW9-gs6bMzhU_mNWdXhs")
 model = genai.GenerativeModel('gemini-2.0-flash')
 
 
@@ -86,7 +86,7 @@ Provide your analysis with:
 - Key risks
 - Clear recommendation (Strong Buy/Buy/Hold/Sell/Strong Sell) with confidence level"""
     try:
-        response = model.generate_content(system=system_prompt,contents=f"{data}")
+        response = model.generate_content(contents=f"{system_prompt}\n{data}")
         response.resolve()
         return response.text.strip()
     except Exception as e:
