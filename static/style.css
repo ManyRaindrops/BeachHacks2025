@@ -1,14 +1,15 @@
+/* Fixes marin and padding for ALL margins and padding */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box; /* Ensures padding doesn’t affect width calculations */
 }
-
+/* Page behavior, scrolls vertically*/
 html {
     scroll-behavior: smooth;
     overflow-y: scroll;
 }
-
+/* Styling for body*/
 body {
     background-color: #202020;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -16,11 +17,13 @@ body {
     display: flex;
 }
 
+/*this fixes and ensures the text on h1 and generated JS align properly */
 .main-container {
     display: flex;  /* Fix to ensure main and aside align properly */
     width: 100%;
 }
 
+/*This creates a sidebar on the leftside */
 aside {
     position: fixed;  /* Keeps sidebar in place */
     left: 0;
@@ -33,7 +36,7 @@ aside {
     flex-direction: column;
     align-items: flex-start;
 }
-
+/* */
 main {
     flex: 1; /* Takes up remaining space */
     margin-left: 250px; /* Matches the width of aside to prevent overlap */
@@ -42,7 +45,7 @@ main {
     flex-direction: column;
     align-items: center;
 }
-
+/* design the general buttons */
 button {
     background-color: #3a5f3b;
     color: #45a049;
@@ -55,14 +58,14 @@ button {
     font-weight: bold;
     max-width: 100%;
 }
-
+ /*puts history text in the top-center of the  */
 h2 #history {
     position: fixed;
     top: 100px;
     left: 125px;
     transform: translate(-50%, -50%);
 }
-
+/* This is the design for the 3 buttons at the top left of the page*/
 #theme, #settings, #about {
     background-color: #3a5f3b;
     color: #45a049;
@@ -75,12 +78,13 @@ h2 #history {
     font-weight: bold;
 }
 
+/*  button hover effect  over search bar*/
 button:hover {
     background-color: #45a049;
     color: #3a5f3b;
     border: 2px solid #3a5f3b;
 }
-
+/* Searcg bar container*/
 .searchbar_container{
     margin-left: 120px;
     color: white;
@@ -248,7 +252,7 @@ body.light-mode #conversation_history {
 
 #popupDialog {
     position: absolute;
-    top: 50%;
+    top: 75%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
