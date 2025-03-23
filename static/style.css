@@ -208,3 +208,33 @@ button:hover {
         opacity: 1;
     }
 }
+
+/* Toggle theme between light and dark */
+body.light-mode {
+    background-color: #f5f5f5;
+    color: #222;
+}
+
+body.light-mode aside {
+    background-color: #e0e0e0;
+}
+
+body.light-mode button {
+    background-color: #d0d0d0;
+    color: #222;
+}
+
+body.light-mode .searchbar_container {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+}
+
+body.light-mode .user-message,
+body.light-mode .bot-message {
+    background-color: #eaeaea;
+    color: #222;
+}
+
+body.light-mode #conversation_history {
+    color: #444;
+}
