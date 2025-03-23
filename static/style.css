@@ -41,7 +41,7 @@
 
 
 
-
+/*
 .main {
     text-align: center;
     position: fixed;
@@ -49,9 +49,24 @@
     transform: translate(-50%, -50%);
     color: white;
     h1{font-size: 60px};
+*/    
+}   
+/*  Style user message 
+.botmessage{
+    text-align: left;
+    margin-top: 50px;
+    position: fixed;
+    color: white;
+    width: 100px;
+    font-size: 20px;
+    margin: 10px 0;
+}
+user style 
+.user_message {
+    
 }
 
-
+*/
 .center_content {
     text-align: center;
     margin-top: 50px;
@@ -166,11 +181,12 @@
 
 /*this animates the main "Welcome user" text */
 .main {
-    position: absolute;
-    top: 50%;
+    text-align: top;
     left: 50%;
+    position: absolute;
+    top: 0%;
     transform: translate(-50px, -50px);
-    font-size: 160px;
+    font-size: 50px;
     -webkit-text-stroke: 1px #fff;
     color: transparent;
     background-image: linear-gradient(#fff, #fff);
@@ -178,6 +194,10 @@
     -webkit-background-clip: text;
     background-position: -750px 0;
     animation: backcolor 5s linear infinite;
+
+    border-bottom: 2px solid white; /* 👈 border under the text */
+    padding-bottom: 10px; /* space between text and line */
+    width: max-content; /* keeps border tight around text */
 }    
 @keyframes backcolor{
     100%{
