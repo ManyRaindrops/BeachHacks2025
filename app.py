@@ -35,6 +35,9 @@ def home():
 def get_data():
     # Get the query from the frontend
     query = request.json.get('query', '')
+
+    with open(CONTEXT_MEMORY_FILE, "r") as file:
+        context = csv.reader(file)
     
     # Let the AI evaluate what to do
     gemini_response = get_gemini_response(query)
@@ -46,8 +49,10 @@ def get_data():
         if company_ticker == "Not Found":
             return jsonify({"status": "error", "message": "Company not found"})
         single_stock_financial_analyzer(company_ticker, query)
-    elif "Comparison of stated or referred to companies[xyz]: " in gemini_response:
-        company_ticker = process_query(gemini_response.split("Two company names[xyz]: ")[1])
+    elif "Comparison of stated or referred to companies" in gemini_response:
+        contextualized_gemini_response = get_contextualized_gemini_response(query, context)
+        
+        company_ticker = process_query(contextualized_gemini_response.split("Two company names[xyz]: ")[1])
         if company_ticker == "Not Found":
             return jsonify({"status": "error", "message": "Company not found"})
         double_stock_financial_analyzer(company_ticker)
@@ -121,7 +126,38 @@ clear_context_memory()  # This will backup the conversation before erasing
 
 def get_gemini_response(query):
     try:
-        response = model.generate_content(f"You are a company name identifier. If the user's query is for information about a single company, respond only with the company name as follows: 'Single company name[xyz]: [company name]'. If the user's query is not asking for a company name, respond to the query. User's query: {query}")
+        response = model.generate_content(f"You are a company name identifier. If the user's query is for information about a single company, respond only with the company name as follows: 'Single company name[xyz]: [company name]'. If the user's query is not asking for a company name, respond to the query.\nUser's query:\n{query}")
+        response.resolve()
+        return response.text.strip()
+    except Exception as e:
+        return f"Error with Gemini: {str(e)}"
+
+def get_contextualized_gemini_response(query, context):
+    context_prompt = """You are an analytic interpretator. Read the user's query and identify what they want to compare. Then concisely compare the companies based on these criteria:
+
+1. Financial Health: Evaluate revenue, profits, cash flow, and debt
+2. Valuation: Compare P/E, P/S, P/B ratios to industry standards
+3. Market Position: Assess competitive advantages and industry trends
+4. Technical Factors: Consider price movements, volume, and momentum
+5. Risk Assessment: Evaluate volatility metrics and specific risks
+
+Provide your analysis with:
+- Summary overview of  comparisons
+- Financial strength metrics comparison
+- Valuation assessment comparison
+- Growth potential comparison
+- Key risks comparison
+- Clear recommendation comparison (Strong Buy/Buy/Hold/Sell/Strong Sell) with confidence level.
+
+User query: {query}
+
+Context:
+{context}"""
+    try:
+        response = model.generate_content(contents=f"{context_prompt}")
+
+        save_to_context_memory(query, response.text.strip())
+
         response.resolve()
         return response.text.strip()
     except Exception as e:
