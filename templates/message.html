@@ -24,7 +24,7 @@
             .user_bubble_format {
                 border-radius: 10px;
                 background-color: #535353;
-                position: fixed;
+                position: sticky;
                 width: 40%;
                 min-height: auto;
                 max-height: 15%;
@@ -37,6 +37,26 @@
                 overflow-y: auto;
                 word-break: break-word;
             }
+
+            .grid-container {
+            display: grid;
+            grid-template-rows: auto;
+            position: absolute;
+            width: 60%;
+            min-height: auto;
+            max-height: 40%;
+            overflow-y: auto;
+            top: 50%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            padding: 10px 10px 10px 10px;
+            box-sizing: border-box;
+            color: white
+            }
+
+            .grid-item {
+            /* Height is automatically adjusted */
+            }
             
         </style>
     </head>
@@ -48,8 +68,8 @@
             <p id = "prev_query">Give me info about blah stocks askfhgjkpdofsjgfjdoafsjdhjdklakfshdfdkajfghfjkdjfbfhjkdjfbjkdnbakjshdvbfhdjiwoefhndsjidufhdnskdjfhndsmkjrhfndmskjdfhnmkloikujhygvbnhjk</p>
         </div>
 
-        <div class = "fadeInTemplate output_format">
-            <p id = "output_text">
+        <div class = "fadeInTemplate grid-container">
+            <p id = "output_text", class = "grid-item">
                 Hello, everyone! This is the LONGEST TEXT EVER! I was inspired by the various other "longest texts ever" on the internet, and I wanted to make my own. So here it is! This is going to be a WORLD RECORD! This is actually my third attempt at doing this. The first time, I didn't save it. The second time, the Neocities editor crashed. Now I'm writing this in Notepad, then copying it into the Neocities editor instead of typing it directly in the Neocities editor to avoid crashing. It sucks that my past two attempts are gone now. Those actually got pretty long. Not the longest, but still pretty long. I hope this one won't get lost somehow. Anyways, let's talk about WAFFLES! I like waffles. Waffles are cool. Waffles is a funny word. Hello, everyone! This is the LONGEST TEXT EVER! I was inspired by the various other "longest texts ever" on the internet, and I wanted to make my own. So here it is! This is going to be a WORLD RECORD! This is actually my third attempt at doing this. The first time, I didn't save it. The second time, the Neocities editor crashed. Now I'm writing this in Notepad, then copying it into the Neocities editor instead of typing it directly in the Neocities editor to avoid crashing. It sucks that my past two attempts are gone now. Those actually got pretty long. Not the longest, but still pretty long. I hope this one won't get lost somehow. Anyways, let's talk about WAFFLES! I like waffles. Waffles are cool. Waffles is a funny word.                Hello, everyone! This is the LONGEST TEXT EVER! I was inspired by the various other "longest texts ever" on the internet, and I wanted to make my own. So here it is! This is going to be a WORLD RECORD! This is actually my third attempt at doing this. The first time, I didn't save it. The second time, the Neocities editor crashed. Now I'm writing this in Notepad, then copying it into the Neocities editor instead of typing it directly in the Neocities editor to avoid crashing. It sucks that my past two attempts are gone now. Those actually got pretty long. Not the longest, but still pretty long. I hope this one won't get lost somehow. Anyways, let's talk about WAFFLES! I like waffles. Waffles are cool. Waffles is a funny word.
             </p>
         </div>
