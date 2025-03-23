@@ -99,13 +99,20 @@ def backup_context_to_permanent(title):
 
 def clear_context_memory():
     """Backup and then clear context memory."""
-    title = gemini_generated_title  # Unique title
+    title = gemini_generated_title(CONTEXT_MEMORY_FILE)  # Unique title
     backup_context_to_permanent(title)
 
     # Clear context memory
     with open(CONTEXT_MEMORY_FILE, "w", newline="") as file:
         writer = csv.writer(file)
         writer.writerow(["Prompt", "Response"])  # Reset header
+
+def gemini_generated_title(CONTEXT_MEMORY_FILE):
+    with open(CONTEXT_MEMORY_FILE, "w", newline="") as file:
+        writer = csv.writer(file)
+    response = model.generate_content(f"Reply only with a title for the following conversation: {write}")
+    response.resolve()
+    return response.text.strip()
 
 clear_context_memory()  # This will backup the conversation before erasing
 
