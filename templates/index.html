@@ -17,19 +17,23 @@
         <div class="main-container">
         <main>
            
+            <!-- Fades in Logo-->
             <div class = "fade-in">
             <h1 id = "mainHeader">$tonk AI</h1>
                 <!-- This is where JavaScript generated elements go-->
                 <!-- There are going to be "div" that have various classes-->
             </div>     
-        </main>
+        </main> <!-- End main -->
     
-
         <aside>
+            <!-- Defines sidebar menu -->
             <div id = 'menu_container'>
+                <!-- Menu buttons -->
                 <button id="theme">☀️</button>
                 <button id="settings">⚙️</button>
                 <button id="about", onClick="openPop()">⁉️</button>
+                
+                <!-- About Us popup box -->
                 <div id="popupDialog">
                     <p> We have created a stock-buy,hold, and sell, AI-powered advisor that returns 
                         data-powered recommendations based on stocks to hold and can create indexes 
@@ -38,35 +42,37 @@
                     <button onclick="openPop()">
                         Close
                     </button>
-                </div>
-                <script>
-                    function openPop() {
-                        const popDialog =
-                            document.getElementById(
-                                "popupDialog"
-                            );
-                        popDialog.style.visibility =
-                            popDialog.style.visibility ===
-                                "visible"
-                                ? "hidden"
-                                : "visible";
-                    }
-                </script>
-            </div>
+                </div> <!-- End popupDialog -->
+                <!-- Scripting for popup -->
+                    <script>
+                        function openPop() {
+                            // variable named popDialog that gets popup element
+                            const popDialog =
+                                document.getElementById(
+                                    "popupDialog"
+                                );
+                            // ternary if-else to change visibility
+                            popDialog.style.visibility =
+                                popDialog.style.visibility ===
+                                    "visible"
+                                    ? "hidden"
+                                    : "visible";
+                        }
+                    </script>
+            </div> <!-- End menu container -->
+
+            <!-- History header in sidebar -->
             <h2><p id = "history", class = "history">History</p></h2>
             <div id = "conversation_history"></div>
-            <!-- <div id = "conversation_history">
-                <p>History</p>
-                This is where JavaScript generated elements go -->
-                <!-- There are going to be "div" that have divs of one class-->
 
-            </div>
         </aside>
-    </div>
+        </div> <!-- End main container -->
   
     <!-- Search Bar, includes NEW TOPIC, SEARCH BAR, SEARCH BUTTON -->
         <div class = "searchbar_container">
+            <!-- Reloads webpage to clear content -->
             <button id="NewTopicButton", onclick="window.location.reload()">💡</button>
+            <!-- Searchbar -->
             <input id="searchbar" type="text" placeholder="Search..">
             <button id="searchbutton">$$$</button>
         </div>
