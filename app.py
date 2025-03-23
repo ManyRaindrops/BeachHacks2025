@@ -46,12 +46,11 @@ def get_data():
         if company_ticker == "Not Found":
             return jsonify({"status": "error", "message": "Company not found"})
         single_stock_financial_analyzer(company_ticker, query)
-    elif "Two company names[xyz]: " in gemini_response:
+    elif "Comparison of stated or referred to companies[xyz]: " in gemini_response:
         company_ticker = process_query(gemini_response.split("Two company names[xyz]: ")[1])
         if company_ticker == "Not Found":
             return jsonify({"status": "error", "message": "Company not found"})
         double_stock_financial_analyzer(company_ticker)
-    elif "Chat Comparison"
     else:
         # Gemini did not return a company name, return the response
         return jsonify({"status": "success", "result": gemini_response})
