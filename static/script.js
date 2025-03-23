@@ -147,4 +147,31 @@ document.addEventListener('DOMContentLoaded', function() {
         // Scroll to the bottom of the main area
         mainDiv.scrollTop = mainDiv.scrollHeight;
     }
+    //Toggle between day and night mode//
+    const themeBtn = document.getElementById("theme");
+
+function updateThemeIcon() {
+  themeBtn.textContent = document.body.classList.contains("light-mode") ? "🌙" : "☀️";
+}
+
+// Toggle light/dark mode on button click
+themeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("light-mode");
+
+  // Save preference
+  const mode = document.body.classList.contains("light-mode") ? "light" : "dark";
+  localStorage.setItem("theme", mode);
+
+  updateThemeIcon();
+});
+
+// Apply saved theme on page load
+window.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "light") {
+    document.body.classList.add("light-mode");
+  }
+  updateThemeIcon();
+});
+
 });
