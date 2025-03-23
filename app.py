@@ -55,6 +55,11 @@ def get_data():
     else:
         # Gemini did not return a company name, return the response
         return jsonify({"status": "success", "result": gemini_response})
+    
+#------------------------------------------------------#
+#                      Memory                          #
+#------------------------------------------------------#
+
 
 #------------------------------------------------------#
 #                    AI Evaluation                     #
