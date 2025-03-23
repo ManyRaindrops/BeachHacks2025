@@ -7,6 +7,13 @@ from company_lookup import company_lookup
 from rapidfuzz import process
 import yfinance as yf
 
+# memory
+import csv
+import os
+
+CONTEXT_MEMORY_FILE = "context_memory.csv"
+PERMANENT_MEMORY_FILE = "permanent_memory.csv"
+
 # Gemini API
 import google.generativeai as genai
 
@@ -29,6 +36,20 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     return render_template('index.html')
+
+# Route for permanent conversation history
+@app.route('/get_conversations', methods=['GET'])
+def get_conversations():
+    try:
+        with open(PERMANENT_MEMORY_FILE, "r") as file:
+            reader = csv.reader(file)
+            next(reader)  # Skip header
+            conversations = [{"title": row[0], "conversation": eval(row[1])} for row in reader]
+        return jsonify(conversations)
+    except FileNotFoundError:
+        return jsonify({"status": "error", "message": "Memory file not found."})
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Error reading conversations: {str(e)}"})
 
 # Route to handle API calls fetch data from APIs and return to frontend
 @app.route('/get_data', methods=['POST'])
@@ -63,12 +84,6 @@ def get_data():
 #------------------------------------------------------#
 #                      Memory                          #
 #------------------------------------------------------#
-
-import csv
-import os
-
-CONTEXT_MEMORY_FILE = "context_memory.csv"
-PERMANENT_MEMORY_FILE = "permanent_memory.csv"
 
 # Ensure files exist
 for file in [CONTEXT_MEMORY_FILE, PERMANENT_MEMORY_FILE]:
@@ -112,7 +127,7 @@ def clear_context_memory():
         writer.writerow(["Prompt", "Response"])  # Reset header
 
 def gemini_generated_title(CONTEXT_MEMORY_FILE):
-    with open(CONTEXT_MEMORY_FILE, "w", newline="") as file:
+    with open(CONTEXT_MEMORY_FILE, "r", newline="") as file: # changed to read only
         writer = csv.writer(file)
     response = model.generate_content(f"Reply only with a title for the following conversation: {write}")
     response.resolve()
@@ -220,13 +235,6 @@ def single_stock_financial_analyzer(company_ticker, query):
         return jsonify({"status": "success", "result": result})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
-
-#------------------------------------------------------#
-#            Two Stock Financial Analyzer              #
-#------------------------------------------------------#
-
-def double_stock_financial_analyzer(company_ticker):
-    pass
 
 #------------------------------------------------------#
 #                        Main                          #
