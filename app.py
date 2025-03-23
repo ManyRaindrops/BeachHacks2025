@@ -57,11 +57,13 @@ def get_data():
     # Get the query from the frontend
     query = request.json.get('query', '')
 
+    # Open context memory *before* getting the Gemini response so the current query isn't included yet
     with open(CONTEXT_MEMORY_FILE, "r") as file:
-        context = csv.reader(file)
+        context = list(csv.reader(file)) # Read all rows into a list
 
     # Let the AI evaluate what to do
     gemini_response = get_gemini_response(query)
+    print(f"Gemini Response for '{query}': {gemini_response}")
 
     if "Error with Gemini:" in gemini_response:
         return jsonify({"status": "error", "message": gemini_response})
@@ -69,14 +71,16 @@ def get_data():
         company_ticker = process_query(gemini_response.split("Single company name[xyz]: ")[1])
         if company_ticker == "Not Found":
             return jsonify({"status": "error", "message": "Company not found"})
-        return single_stock_financial_analyzer(company_ticker, query)  # Add return here
+        return single_stock_financial_analyzer(company_ticker, query)
     elif "Comparison of stated or referred to companies" in gemini_response:
         contextualized_gemini_response = get_contextualized_gemini_response(query, context)
         if "Error with Gemini:" in contextualized_gemini_response:
             return jsonify({"status": "error", "message": contextualized_gemini_response})
-        return contextualized_gemini_response  # Add return here
+        save_to_context_memory(query, contextualized_gemini_response)
+        return jsonify({"status": "success", "result": contextualized_gemini_response}) # Return as JSON
     else:
         # Gemini did not return a company name, return the response
+        save_to_context_memory(query, gemini_response)
         return jsonify({"status": "success", "result": gemini_response})
     
 #------------------------------------------------------#
@@ -137,7 +141,14 @@ clear_context_memory()  # This will backup the conversation before erasing
 
 def get_gemini_response(query):
     try:
-        response = model.generate_content(f"You are a company name identifier. If the user's query is for information about a single company, respond only with the company name as follows: 'Single company name[xyz]: [company name]'. If the user's query is not asking for a company name, respond to the query.\nUser's query:\n{query}")
+        response = model.generate_content(
+            f"""You are a helpful AI assistant.
+If the user's query asks for information about a single company, respond with: 'Single company name[xyz]: [company name]'. In parenthesis, identify a potential parent company if there exists one: 'Single company name[xyz]: [company name] (parent company name)'. "xyz" should never be replaced with anything and the format should never be broken.
+If the user's query asks to compare two or more companies that have been mentioned in the current conversation, respond with: 'Comparison of stated or referred to companies'.
+If the user's query is not asking for a company name or a comparison, simply respond to the query directly.
+User's query:
+{query}"""
+        )
         response.resolve()
         return response.text.strip()
     except Exception as e:
@@ -207,12 +218,16 @@ Provide your analysis with:
 #------------------------------------------------------#
 
 def process_query(company_name):
+    print(f"process_query called with company_name: '{company_name}'")  # ADD THIS LINE
     company_name = company_name.lower()
     if company_name in company_lookup:
+        print(f"Found direct match in company_lookup: {company_lookup[company_name]}")  # ADD THIS LINE
         return company_lookup[company_name]
     best_match = process.extractOne(company_name, company_lookup.keys())
     if best_match:
+        print(f"Best match found by rapidfuzz: '{best_match[0]}' -> {company_lookup[best_match[0]]} (score: {best_match[1]})")  # ADD THIS LINE
         return company_lookup[best_match[0]]
+    print("Company not found")  # ADD THIS LINE
     return "Not Found"
 
 def single_stock_financial_analyzer(company_ticker, query):
