@@ -51,6 +51,7 @@ def get_data():
         if company_ticker == "Not Found":
             return jsonify({"status": "error", "message": "Company not found"})
         double_stock_financial_analyzer(company_ticker)
+    elif "Chat Comparison"
     else:
         # Gemini did not return a company name, return the response
         return jsonify({"status": "success", "result": gemini_response})
