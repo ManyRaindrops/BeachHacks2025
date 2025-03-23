@@ -96,21 +96,52 @@
     background-repeat: no-repeat;
     background-position: top;
 }
-
+/* Make button design */
  button{
-    height: 45px;
-    min-width: 100px;
-    margin-left: 10px;
+    height: 60px;
+    width: 60px;
+    min-width: 60px;
+    min-width: 60px;
     color: white;
+    background: linear-gradient(135deg, #e7ed40, #3c2e7d);
     border: none;
     border-radius: 50%;
-    font-size: 16px ;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0, 0.3);
-    position: fixed;
+    box-shadow:rgba(0,0,0, 0.2);
+}
+
+/* This animtes the text box for finance*/
+.center_content-box {
+    background-color: red;
+    transition: background-color 0.5s ease-in-out;
+}
+.animated-textbox input: focus{
+    background-color: #f0f0f0;
+    outline: none;
+}
+
+/*this animates the main "Welcome user" text */
+.main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50px, -50px);
+    font-size: 160px;
+    -webkit-text-stroke: 1px #fff;
+    color: transparent;
+    background-image: linear-gradient(#fff, #fff);
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-position: -750px 0;
+    animation: backcolor 5s linear infinite;
+}    
+@keyframes backcolor{
+    100%{
+        background-position: 0 0;
+    }
 }
