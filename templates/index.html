@@ -8,32 +8,34 @@
 	<head>
 		<title>STOCK AI</title>
         <link rel="stylesheet" type="text/css" href="../static/style.css">
-        <meta name="viewport">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 
 	<!-- Container for the webpage's contents -->
-	<body style = "background-color: #2c2c2c">
-
-        <div class = "main">
+	<body>
+        <main>
             <h1 id = "mainHeader">Hello User!</h1>
-        </div>
-        <div class = "sidenav" id = "sidebar">
-            <img class = "logo_gif" src = "../images/AnimatedStock.gif" />
-            <div class = 'menu_container'>
-                <p class = 'button_container'> Place holder</p>
-                <p class = 'button_container'> Place holder</p>       
-                <p class = 'button_container'> Place holder</p>  
-                <p class = 'button_container'> Place holder</p>
+                <!-- This is where JavaScript generated elements go-->
+                <!-- There are going to be "div" that have various classes-->
+        </main>
+
+        <aside>
+            <div id = 'menu_container'>
+                <button id="menu">Theme</button>
+                <button id="menu">Settings</button>
+                <button id="menu">About</button>
             </div>
-        </div>
+            <div id = "conversation_history">
+                <p>History</p>
+                <!-- This is where JavaScript generated elements go-->
+                <!-- There are going to be "div" that have divs of one class-->
+
+            </div>
+        </aside>
   
-
-        <div class = "searchbar">
+        <div class = "searchbar_container">
             <input id="searchbar" type="text" placeholder="Search..">
-            <!--<button id="searchbutton" href = message.html>Search</button> -->
-            <a id="button" href="message.html">Search</a>
-
+            <button id="searchbutton">Search</button>
         </div>
-        
 	</body>
 </html>
