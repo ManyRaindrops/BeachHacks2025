@@ -6,17 +6,35 @@
         <meta name="viewport">
 
         <style>
-        
             .output_format {
                 border: 5px solid blue;
                 border-radius: 5px;
+                position: fixed;
+                width: 40%;
+                height: 60%;
+                top: 60%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .user_bubble_format {
+                border: 5px solid gray;
+                border-radius: 5px;
+                position: fixed;
+                width: 40%;
+                height: 15%;
+                top: 20%;
+                left: 70%;
+                transform: translate(-50%, -50%);
             }
             
         </style>
     </head>
     <body>
-        <div class = "output_box output_format">
+        <div class = "fadeInTemplate output_format">
             <p>Output should go here</p>
+        </div>
+        <div class = "user_bubble_format">
+            <p>User's query goes here</p>
         </div>
     </body>
 </html>
