@@ -38,15 +38,17 @@ aside {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 25%;
-    height: 100%;
+    width: 200px;
+    height: 100vh;
     background-color: #141414;
 }
+
 
 button {
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
+    margin: 10px 0;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -57,8 +59,15 @@ button {
 button:hover {
     background-color: #45a049;
 }
+.conversation_history{
+    margin-top: 20px;
+}
 
-/*TITLE */
+/*other styles*/
+/*Container for buttones on left-side*/
+.menu_container {
+    position: fixed;
+}
 
 h1{
     text-align: center;
@@ -72,18 +81,19 @@ h1{
 }
 
 .searchbar_container{
-    position: fixed;
-    bottom: 5px;
-    left: 50px;
-    transform: transalte(-50%);
-    width: 50px;
-    height: 80px;
-    background-color: white; /*change to Blackish color palite*/
-    border-radius: 40px;
+    position: fixed; /* or absolute */
+    width: 40%; /* total page width */
+    height: 90px;
+    /* padding, https://css-tricks.com/quick-css-trick-how-to-center-an-object-exactly-in-the-center */
+    bottom: 5%;
+    left: 60%;
     display: flex;
     justify-content: center;
+    transform: translate(-50%, -50%);
+    border-radius: 40px;
+    box-shadow: 0 4px 15px rgba(0,0,0, 0.3);
     align-items: center;
-    padding: 0 20px;
+    padding: 0 10px;
     border: 1px solid #4a4a4a;
 }
 
