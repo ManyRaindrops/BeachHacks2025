@@ -40,6 +40,10 @@ def get_data():
 
     if "Single company name[xyz]: " in gemini_response: 
         company_ticker = process_query(gemini_response.split("Single company name[xyz]: ")[1])
+        single_stock_financial_analyzer(company_ticker)
+    elif "Two company names[xyz]: " in gemini_response:
+        company_ticker = process_query(gemini_response.split("Two company names[xyz]: ")[1])
+        double_stock_financial_analyzer(company_ticker)
     else:
         # Gemini did not return a company name, return the response
         return jsonify({"status": "success", "result": gemini_response})
@@ -55,6 +59,15 @@ def get_gemini_response(query):
         return response.text.strip()
     except Exception as e:
         return f"Error with Gemini: {str(e)}"
+
+# Process the numerial and news data, call the Gemini API
+def process_data(data):
+    """
+    This is where the formulas and Gemini Evaluation goes
+    I need:
+    - what data is in the JSON (output of the API call)
+    """
+    pass
 
 #------------------------------------------------------#
 #           Single Stock Financial Anlyzer             #
@@ -84,13 +97,11 @@ def single_stock_financial_analyzer(company_ticker):
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
 
-# Process the numerial and news data, call the Gemini API
-def process_data(data):
-    """
-    This is where the formulas and Gemini Evaluation goes
-    I need:
-    - what data is in the JSON (output of the API call)
-    """
+#------------------------------------------------------#
+#            Two Stock Financial Analyzer              #
+#------------------------------------------------------#
+
+def double_stock_financial_analyzer(company_ticker):
     pass
 
 #------------------------------------------------------#
